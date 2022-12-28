@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="index.css">
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+<body>
+    <div class="container">
+       <center><div id="app">
+            <h1 id="quote">"Nothing is impossible." ... <br>
+                <h4 id="author">Author. ...</h4>
+            </h1>
+        </div></center>
+        <center>
+            <div class="dashboard">
+            <input type="text" name="quotes" id="" placeholder="Enter Your Quote Here">
+            <input type="text" name="author" id="" placeholder="Author Name">
+            <button id="colorChange">Change Color</button>
+            <button id="dlbtn">Download Quote</button>
+        </div>
+        <div id="downloadedItem" hidden><hr><hr><center><h3>Downloaded Items</h3></center></div>
+        </center>
+    </div>
+</body>
+<script>
+let quoteInput = document.querySelector('[name=quotes]');
+let authorInput = document.querySelector('[name=author]');
+let quote = document.getElementById('quote');
+let author = document.getElementById('author');
+let dlbtn = document.getElementById('dlbtn');
+let app = document.getElementById('app');
+let dnwitm = document.getElementById('downloadedItem')
+
+let colors = ['linear-gradient(30deg, #33EC33, #9900CC, #0000FF, #9400D3, #FFFF00, #FF7F00, #FF0000', 'linear-gradient(60deg, #33EC33, #9900CC, #0000FF, #9400D3, #FFFF00, #FF7F00, #FF0000', 'linear-gradient(90deg, #33EC33, #9900CC, #0000FF, #9400D3, #FFFF00, #FF7F00, #FF0000', 'radial-gradient(#33EC33, #9900CC, #0000FF, #9400D3, #FFFF00, #FF7F00, #FF0000', 'conic-gradient(#33EC33, #9900CC, #0000FF, #9400D3, #FFFF00, #FF7F00, #FF0000', ];
+let color = ['#FF0000', '#9400D3', '#0000FF', '#9900CC', '#FF7F00', '#FFFF00', '#33EC33']
+
+document.getElementById('colorChange').addEventListener('click', function(e){
+let abc = Math.floor(Math.random() * color.length);
+console.log(abc);
+let newColor = color[abc];
+document.getElementById('app').style.background = newColor;
+});
+
+quoteInput.addEventListener('keyup', function(e){
+    quote.innerText = e.currentTarget.value;
+})
+authorInput.addEventListener('keyup', function(e){
+    author.innerText = e.currentTarget.value;
+})
+
+dlbtn.addEventListener('click', function(){
+html2canvas(app).then(canvas => {
+    let a = document.createElement('a');
+    a.download="Quotes"+Math.floor(Math.random()*100)+'.jpg';
+    a.href=canvas.toDataURL();
+    a.click();
+    document.body.appendChild(canvas);
+    dnwitm.hidden = false;
+
+});
+});
+</script>
+
+</html>
